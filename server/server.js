@@ -4,10 +4,7 @@ const { PORT = 3000 } = process.env
 const express = require('express')
 const server = express()
 
-// Body parsing middleware
-const bodyParser = require('body-parser')
-server.use(bodyParser.json)
-// cant decide which to use yet lol
+
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
@@ -22,18 +19,6 @@ server.use((req, res, next) => {
   next();
 });
 
-// server.use((req, res, next) => {
-//   const auth = req.headers.authorization;
-//   const token = auth?.startsWith("Bearer ") ? auth.slice(7) : null;
-
-//   try {
-//     req.user = jwt.verify(token, process.env.JWT);
-//   } catch {
-//     req.user = null;
-//   }
-
-//   next();
-// });
 
 server.use("/auth", require("./auth/auth.js"))
 // server.use("/api", require("./api/apirouter.js"))

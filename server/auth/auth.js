@@ -1,19 +1,20 @@
 const authRouter = require("express").Router()
 // const db = require("../db")
 const jwt = require("jsonwebtoken")
+const { PrismaClient, Prisma } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 authRouter.post("/register", async (req, res, next) => {
   console.log("inside post")
-  const { username, password } = req.body
   try {
-    const newUser = await prisma.post.create({
+    await prisma.post.create({
       data: {
-        username: username,
-        password: password,
+        username: req.body.username,
+        password: req.body.password
       },
     })
     res.send({
-      message: `Welcome to juicebox, ${username}!`
+      message: `Welcome to juicebox, ${req.body.username}!`
     })
   } catch (error) {
     console.log(error)
