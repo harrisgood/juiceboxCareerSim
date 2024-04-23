@@ -21,7 +21,7 @@ server.use((req, res, next) => {
 
 
 server.use("/auth", require("./auth/auth.js"))
-// server.use("/api", require("./api/apirouter.js"))
+server.use("/api", require("./api/apirouter.js"))
 
 server.use((err, req, res, next) => {
   console.error(err)

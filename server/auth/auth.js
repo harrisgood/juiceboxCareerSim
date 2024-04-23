@@ -1,9 +1,7 @@
 require('dotenv').config()
 const authRouter = require("express").Router()
-// const db = require("../db")
 const jwt = require("jsonwebtoken")
 const { PrismaClient } = require("@prisma/client")
-const express = require("express")
 const prisma = new PrismaClient()
 
 
