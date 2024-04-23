@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "npx prisma migrate reset && node server/db/seed.js"
+    "seed": "npx prisma migrate reset && node server/db/seed.js",
+    "dev": "node --watch ./server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,11 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@prisma/client": "^5.13.0"
+    "@prisma/client": "^5.13.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0"
   }
 }
