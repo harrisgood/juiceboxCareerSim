@@ -37,7 +37,6 @@ authRouter.post("/register", async (req, res, next) => {
 
 // POST login - log in with provided credentials and provide a token
 authRouter.post("/login", async (req, res, next) => {
-  console.log("inside login post")
   try {
     const userLoggingIn = await prisma.users.findUnique({
       where: {
