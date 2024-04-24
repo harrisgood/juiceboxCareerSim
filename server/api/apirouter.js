@@ -4,9 +4,8 @@ const jwt = require("jsonwebtoken")
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
-
 ///////////////////////////////////////
-//// ACCESSIBLE TO ANYONE FUNCTIONS////
+//// ACCESSIBLE TO ANYONE FUNCTIONS ///
 ///////////////////////////////////////
 
 // GET posts - get all posts
@@ -19,7 +18,6 @@ apiRouter.get("/posts", async (req, res, next) => {
     next(error)
   }
 })
-
 
 // GET post id - get post by specific id
 apiRouter.get("/posts/:id", async (req, res, next) => {
@@ -50,17 +48,8 @@ apiRouter.use((req, res, next) => {
   } catch {
     req.user = null;
   }
-
   next();
 });
-
-
-// apiRouter.use((req, res, next) => {
-//   if (!req.user) {
-//     return res.status(401).send("You must be logged in to do that.");
-//   }
-//   next();
-// });
 
 //POST- create a new post as currently logged in user
 apiRouter.post("/posts", async (req, res, next) => {

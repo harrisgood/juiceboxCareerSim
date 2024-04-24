@@ -3,6 +3,7 @@ const authRouter = require("express").Router()
 const jwt = require("jsonwebtoken")
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
+const bcrypt = require('bcrypt')
 
 
 // POST register - create user with provided credentials and return a token
@@ -11,7 +12,7 @@ authRouter.post("/register", async (req, res, next) => {
     const newUser = await prisma.users.create({
       data: {
         username: req.body.username,
-        password: req.body.password
+        password: await bcrypt.hash(req.body.password, 10)
       },
     })
 
@@ -43,7 +44,8 @@ authRouter.post("/login", async (req, res, next) => {
       },
     })
     let token = null
-    if(userLoggingIn){
+    const passwordCompare = await bcrypt.compare(req.body.password, user.password)
+    if(userLoggingIn && passwordCompare){
       token = jwt.sign({ id: userLoggingIn.id }, process.env.JWT_SECRET)
       res.send({
         message: `Welcome back to juicebox, ${req.body.username}!`,

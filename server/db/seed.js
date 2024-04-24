@@ -1,6 +1,6 @@
 const { faker } = require("@faker-js/faker")
 const { PrismaClient } = require("@prisma/client")
-
+const bcrypt = require('bcrypt')
 const prisma = new PrismaClient()
 
 const createUsersTable = async () => {
@@ -8,7 +8,7 @@ const createUsersTable = async () => {
     await prisma.users.create({
       data: {
         username: faker.internet.userName(),
-        password: faker.internet.password()
+        password: await bcrypt.hash(faker.internet.password(), 10)
       }
     })
   }
